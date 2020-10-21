@@ -1,0 +1,210 @@
+<html>
+	<head>
+		<title>week 5</title>
+		<style>
+		
+			img {
+			width:: 260px;
+			height: 260px;
+			}
+			div#output {
+			width: 400px;
+			height 160px;
+			background-color: #FFF8E7;
+			overflow-y: scroll;
+			}
+		</style>
+	
+	
+	</head>
+	<body>
+		<h1>
+			Adventure
+		</h1>
+		<h1>
+		<span id="name1"> </span> <br>
+		Your HP is <span id="hp"> </span><br>
+		Enemy HP is <span id="enemy"> </span>
+		
+		</h1>
+		<div id="output">
+		
+		</div>
+		<button id="attackbutton">ATTACK</button>
+		<button id="healbutton">USE POTION</button><br>
+		<img src = ""/>
+		
+		
+		
+		
+		<script src="human.js"></script>
+		<script src="monsters.js"></script>
+		<script src="items.js"></script>
+		<script>		
+				
+
+//query selector selects img element from html
+
+		console.log(human); //				
+		console.log(monsters)										
+			var game = {
+			 //
+				name: "Finn the Human", //user - "human" monsters - "monsters"//
+				hp: 100,
+				damage: 12
+				,
+		     	monsters1: [
+					{
+					name: "wyvern", //separate with comma's
+					hp:120,       //objects within an array
+					damage: 10,
+					image: "https://orig10.deviantart.net/3ddf/f/2016/019/f/3/little_wyvern_by_diterkha-d9ojc5k.png"
+					},
+					{
+					name: "undead",
+					hp:70,
+					damage: 18,
+					image: "https://thumbs.dreamstime.com/b/cartoon-cute-zombie-isolated-white-45640576.jpg"
+					},
+					{
+					name: "rogue",
+					hp:90,
+					damage: 12,
+					image: "https://opengameart.org/sites/default/files/boardgamerogue.png"
+					},
+				 
+				],
+				
+					
+			}
+			
+			
+			
+			
+			
+			
+		function genRandomNum(maxNumber) { ///!return replaces
+			return Math.floor(  Math.random() * maxNumber  );  ///console log/
+			
+			} ///floor or ceiling. round up or down
+
+		
+		var currentEnemyIndex = genRandomNum(game.monsters1.length);
+							
+		var currentEnemyName = game.monsters1[currentEnemyIndex].name;
+		
+		var currentEnemyHp = game.monsters1[currentEnemyIndex].hp;
+		
+		var currentEnemyDamage = game.monsters1[currentEnemyIndex].damage;
+		
+		console.log(currentEnemyName);
+		
+		var currentEnemyImg = game.monsters1[currentEnemyIndex].image;
+		
+		var imgTag = document.querySelectorAll("img")[0];
+		
+		imgTag.src = currentEnemyImg;
+		
+		output.innerHTML ="You have encountered" + "<p>" + currentEnemyName + "</p>";
+		
+		enemy.innerText = currentEnemyHp;
+		
+		
+		var currentHp = game.hp;
+		hp.innerText = currentHp;
+
+		var myDamage = game.damage;
+
+		
+		
+		//1. get array 2. use brackets 3. get name with dot notation
+		
+		
+		//dont forget var
+		function attack() {
+		
+		
+		var hit = currentEnemyHp - myDamage;
+		
+		var getHit = currentHp - currentEnemyDamage;
+		
+		
+		currentHp = getHit;
+		currentEnemyHp = hit;
+		
+		enemy.innerText = currentEnemyHp;
+		hp.innerText = currentHp;
+		name1.innerText = "You attacked and lost " + currentEnemyDamage + " health.";
+		
+		
+		
+		
+		if (currentHp <= 0) {
+		output_message("You have died.");
+		
+		}
+		if (currentEnemyHp <= 0) {
+		output_message("you have killed the " + currentEnemyName);
+		dropSystem(); 
+		}
+		}
+		
+		function output_message(message) {
+		output.innerHTML = "<p>" + message + "</p>" + output.innerHTML;
+		
+		}
+		
+		function potion() {
+		
+		currentHp = currentHp + 6;
+		alert("used a potion");
+		hp.innerText = currentHp
+		
+		
+		}
+		
+	
+	
+	
+	function dropSystem() {
+	
+	
+	var randomChance = Math.random();
+	
+	var findableItems = [];
+	
+	items.forEach(function(item) {
+	
+	if(item.chance > randomChance) {
+	findableItems.push(item);
+	}
+	
+	
+	});
+	
+	if(findableItems.length == 0) {
+	output_message("No items dropped");
+	} else {
+	var randomItemNumber = Math.floor(Math.random() * findableItems.length);
+	
+	var looted = randomItemNumber.name;
+	
+	output_message("you have found " + looted);
+	}
+	
+	}
+	
+
+	
+		
+		
+
+		attackbutton.addEventListener("click", attack);
+		healbutton.addEventListener("click", potion);
+		</script>
+	
+	</body>
+
+
+
+</html>
